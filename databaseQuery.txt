@@ -1,0 +1,7 @@
+DATABASE QUERY
+==============
+create database organisasi;
+use organisasi;
+create table users(idUser int key auto_increment, username varchar(255), password varchar(255), role varchar(50));
+create table organisasi(idOrganisasi int key auto_increment, namaOrganisasi varchar(255), deskripsi text);
+create table pendaftaranOrganisasi(idPendaftaran int key auto_increment, user int(12), nama varchar(255), alasan text, organisasi int(12));
