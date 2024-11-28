@@ -16,7 +16,7 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="organisasi/proses/prosesTambahkanOrganisasi.php" method="post">
+                        <form action="organisasi/proses/prosesTambahkanOrganisasi.php" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <p>Nama</p>
                                 <input type="text"class="form-control" name="nama" placeholder="masukkan nama organisasi.."><br>
@@ -24,6 +24,8 @@
                                 <input type="text" class="form-control" name="deskripsi" placeholder="masukkan deskripsi.."><br>
                                 <p>Jenis</p>
                                 <input type="text" class="form-control" name="jenis" placeholder="masukkan jenis.."><br>
+                                <p>Foto</p>
+                                <input type="file" class="form-control" name="imageFile"><br>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary fw-bold" data-dismiss="modal">Close</button>
@@ -65,7 +67,21 @@
                                     <td><?php echo $kolom['namaOrganisasi']?></td>
                                     <td><?php echo $kolom['deskripsi']?></td>
                                     <td><?php echo $kolom['jenis']?></td>
-                                    <td><?php echo $kolom['foto']?></td>
+                                    <td>
+                                        
+                                    <?php
+                                    if($kolom['foto']){
+                                        echo '<a href="../../'.$kolom['foto'].'" target="_blank">';
+                                        echo '<img src="../../'.$kolom['foto'].'" alt="" style="height:100px;width:fit-content">';
+                                        echo '</a>';
+                                    }else{
+                                        echo '<a href="../../assets/img/error.jpg" target="_blank">';
+                                        echo '<img src="../../assets/img/error.jpg" alt="" style="height:100px;width:fit-content">';
+                                        echo '</a>';
+                                    }
+                                    ?>
+                                    
+                                    </td>
                                     <td>
                                     <div class="d-flex flex-row" style="gap:0.5em">
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate<?php echo $kolom['idOrganisasi']?>">Edit</button>
@@ -82,7 +98,7 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="organisasi/proses/prosesUpdateOrganisasi.php" method="post">
+                        <form action="organisasi/proses/prosesUpdateOrganisasi.php" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <p>Nama</p>
                                 <input type="text"class="form-control" name="nama" placeholder="masukkan nama organisasi.." value="<?php echo $kolom['namaOrganisasi']?>"><br>
@@ -90,6 +106,8 @@
                                 <input type="text" class="form-control" name="deskripsi" placeholder="masukkan deskripsi.." value="<?php echo $kolom['deskripsi'] ?>"><br>
                                 <p>Jenis</p>
                                 <input type="text" class="form-control" name="jenis" placeholder="masukkan jenis.." value="<?php echo $kolom['jenis']?>"><br>
+                                <p>Foto</p>
+                                <input type="file" class="form-control" name="imageFile"><br>
                                 <input type="number" name="idOrganisasi" value="<?php echo $kolom['idOrganisasi']?>" hidden>
                             </div>
                             <div class="modal-footer">

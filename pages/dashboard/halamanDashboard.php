@@ -1,4 +1,4 @@
-<?php 
+<button?php 
 session_start();
 ?>
 
@@ -24,7 +24,12 @@ session_start();
                             if (mysqli_num_rows($hasilQuery) > 0) {
                                 while ($kolom = mysqli_fetch_array($hasilQuery)) {
                                     // var_dump($kolom['namaOrganisasi']);
-                                    echo '<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#'. str_replace(' ', '_', (strtolower($kolom['namaOrganisasi']))).'">'.$kolom['namaOrganisasi'].'</button>';
+                                    if(empty($_SESSION['idUser'])){
+                                        echo '<a class="dropdown-item" href="authenticate/login.php">'.$kolom['namaOrganisasi'].'</a>';
+                                    }else{
+                                        echo '<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#'. str_replace(' ', '_', (strtolower($kolom['namaOrganisasi']))).'">'.$kolom['namaOrganisasi'].'</button>';
+                                        
+                                    }
                                 ?>
                             
                         <?php
@@ -56,8 +61,86 @@ session_start();
         </div>
     </nav>
     <!-- Navbar End -->
+
+
+
+
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5">
+        <div class="owl-carousel header-carousel position-relative">
+
+                <?php
+            $sqlBanner = "SELECT * FROM organisasi";
+            if ($hasilBanner = mysqli_query($db, $sqlBanner)) {
+                if (mysqli_num_rows($hasilBanner) > 0) {
+                    while ($rows = mysqli_fetch_array($hasilBanner)) {
+                        // var_dump($rows['namaOrganisasi']);
+                    ?>
+            <div class="owl-carousel-item position-relative">
+                <?php
+                    if($rows['foto']){
+                        echo '<img class="img-fluid" src="../'.$rows['foto'].'" alt="">';
+                    }else{
+                        echo '<img class="img-fluid" src="../assets/img/error.jpg" alt="">';
+                    }
+                ?>
+                
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown"><?php echo $rows['jenis'] ?></h5>
+                                <h1 class="display-3 text-white animated slideInDown"><?php echo $rows['namaOrganisasi']?></h1>
+                                <p class="fs-5 text-white mb-4 pb-2"><?php echo $rows['deskripsi']?></p>
+                        <?php 
+                                if(empty($_SESSION['idUser'])){
+
+                                    echo '<a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" href="authenticate/login.php">Gabung Bersama Kami</a>';
+                                }else{
+                                    echo '<button class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" data-bs-toggle="modal" data-bs-target="#'. str_replace(' ', '_', (strtolower($rows['namaOrganisasi']))).'">Gabung Bersama Kami</button>';
+
+                                }
+                        ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+                    }
+                }
+            }
+            ?>
+                        
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100" src="../assets/img/about.jpg" alt="" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                    <h1 class="mb-4">Organisasi</h1>
+                    <p class="mb-4">Organisasi adalah sekelompok individu yang bekerja sama secara terstruktur dan terkoordinasi untuk mencapai tujuan tertentu.</p>
+                    <p class="mb-4">Struktur organisasi melibatkan pembagian tugas, peran, dan tanggung jawab yang dirancang untuk memaksimalkan efisiensi dan hasil.</p>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
     <?php
-                        require_once('../database/connection.php');
                         $sql = "SELECT namaOrganisasi FROM organisasi";
                         if ($hasilQuery = mysqli_query($db, $sql)) {
                             if (mysqli_num_rows($hasilQuery) > 0) {
@@ -92,72 +175,6 @@ session_start();
                             }
                         }
                         ?>
-
-
-
-
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../assets/img/polar.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../assets/img/pusdima.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Carousel End -->
-
-
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100" src="../assets/img/about.jpg" alt="" style="object-fit: cover;">
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Organisasi</h1>
-                    <p class="mb-4">Organisasi adalah sekelompok individu yang bekerja sama secara terstruktur dan terkoordinasi untuk mencapai tujuan tertentu.</p>
-                    <p class="mb-4">Struktur organisasi melibatkan pembagian tugas, peran, dan tanggung jawab yang dirancang untuk memaksimalkan efisiensi dan hasil.</p>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
-
 
 
 
