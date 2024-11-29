@@ -41,7 +41,7 @@ if (isset($_POST['login'])) {
                 echo "ANDA DITAHAN KARNA ANDA ADMIN";
                 echo "<meta http-equiv='refresh' content='0;url=../../admin/dashboardAdmin.php?p=dashboardAdminPage'>";
             } else {
-                echo "<meta http-equiv='refresh' content='0;url=../index.php?p=halamanDashboard'>";
+                echo "<meta http-equiv='refresh' content='0;url=../../index.php?p=halamanDashboard'>";
 
             }
             // Redirect ke dashboard

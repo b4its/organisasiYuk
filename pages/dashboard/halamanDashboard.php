@@ -1,4 +1,4 @@
-<button?php 
+<?php 
 session_start();
 ?>
 
@@ -141,7 +141,7 @@ session_start();
     </div>
     <!-- About End -->
     <?php
-                        $sql = "SELECT namaOrganisasi FROM organisasi";
+                        $sql = "SELECT * FROM organisasi";
                         if ($hasilQuery = mysqli_query($db, $sql)) {
                             if (mysqli_num_rows($hasilQuery) > 0) {
                                 while ($kolom = mysqli_fetch_array($hasilQuery)) {
@@ -153,21 +153,28 @@ session_start();
                                     <h1 class="modal-title fs-5" id="<?php echo str_replace(' ', '_', (strtolower($kolom['namaOrganisasi']))) ?>Label">Pendaftaran <?php echo $kolom['namaOrganisasi'] ?></h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <form action="proses/prosesTambahAnggota.php" method="post">
+
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="masukkan nama anda">
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="masukkan nama anda" name="nama">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Alasan</label><br>
-                                        <textarea name="alasan" cols="30" class="form-control" placeholder="masukkan alasan anda"></textarea>
+                                        <textarea name="alasan" cols="30" class="form-control" placeholder="masukkan alasan anda" name="alasan"></textarea>
                                     </div>
+                                    <input type="text" value="<?php echo $kolom['idOrganisasi']?>" name="organisasi" hidden>
+                                    <input type="text" value="<?php echo $_SESSION['idUser']?>" name="user" hidden>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Daftar</button>
+                                    <button type="submit" class="btn btn-primary">Daftar</button>
                                 </div>
                                 </div>
+                                </form>
+
                             </div>
                             </div>
                         <?php

@@ -1,5 +1,5 @@
 <?php
-include_once '../../database/connection.php';
+include_once '../../../database/connection.php';
 session_start();
 
 $email = trim($_POST['email'] ?? '');
@@ -36,15 +36,15 @@ if ($password1 !== $password2) {
 
 // Enkripsi password
 $encryptedPassword = password_hash($password1, PASSWORD_DEFAULT);
-
+$roles = "pengguna";
 try {
     // Gunakan prepared statement
-    $stmt = $db->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)");
     if (!$stmt) {
         throw new Exception("Error preparing statement: " . $db->error);
     }
     
-    $stmt->bind_param("sss", $email, $username, $encryptedPassword);
+    $stmt->bind_param("ssss", $email, $username, $encryptedPassword, $roles);
     $result = $stmt->execute();
 
     if ($result) {
