@@ -134,7 +134,6 @@ session_start();
                     <h1 class="mb-4">Organisasi</h1>
                     <p class="mb-4">Organisasi adalah sekelompok individu yang bekerja sama secara terstruktur dan terkoordinasi untuk mencapai tujuan tertentu.</p>
                     <p class="mb-4">Struktur organisasi melibatkan pembagian tugas, peran, dan tanggung jawab yang dirancang untuk memaksimalkan efisiensi dan hasil.</p>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
                 </div>
             </div>
         </div>
